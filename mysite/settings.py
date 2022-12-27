@@ -37,6 +37,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'bootstrap4',
+    'bootstrap_datepicker_plus',
+    'crispy_forms',
+    'hila_tube',
+    'core',
+
 ]
 
 MIDDLEWARE = [
@@ -54,7 +60,9 @@ ROOT_URLCONF = 'mysite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            BASE_DIR / 'templates'
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -116,12 +124,27 @@ USE_I18N = True
 USE_TZ = True
 
 
+DATE_INPUT_FORMATS = [    '%Y-%m-%d', # '2006-10-25'    
+                            '%m/%d/%Y', # '10/25/2006'    
+                            '%m/%d/%y', # '10/25/06'
+                    ]
+
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT=os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS=(os.path.join(BASE_DIR, 'static'),)
+
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
+MEDIA_ROOT= os.path.join(BASE_DIR, "images")
+MEDIA_URL="images/"

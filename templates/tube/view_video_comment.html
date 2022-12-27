@@ -1,0 +1,11 @@
+<h2>Comments</h2>
+{% for comment in video.comment_set.all %}
+    <p>{{ comment.body }}</p>
+{% endfor %}
+
+<h3>Add a comment</h3>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Submit">
+</form>

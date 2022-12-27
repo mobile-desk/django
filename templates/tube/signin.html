@@ -1,0 +1,47 @@
+{% extends 'auth_tube.html' %}
+
+{% block title %}
+    Sign In             
+{% endblock title %}
+
+{% block content %}
+
+    {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert" style="color: white;">
+            <strong style="color: white;"> Message: </strong> {{ message }}
+            <button style="color: white;" type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    {% endfor %}
+
+    <div class="mb-3">
+        <h1>Log In</h1>
+            
+        <form action="" method="POST">
+            {% csrf_token %}
+
+            <label for="" class="form-label">Username</label>
+            <input type="text" class="form-control" id="username" name="username" placeholder="Enter a Username"  Required>
+            <br>
+
+            <label for="" class="form-label">Password</label>
+            <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password"  Required>
+            <br>
+
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <button type="submit" class="btn btn-primary btn-lg" style="border-top-right-radius: 5px; border-bottom-right-radius: 5px;">Sign In</button>
+                <a href="signup"> <button type="button" class="btn btn-primary btn-lg btn-secondary" style="margin-left: 20px; border-top-left-radius: 5px; border-bottom-left-radius: 5px;">SignUp</button> </a>
+            </div>
+
+            <!--
+            <div id="nn">
+                <a href="signup">
+                    <h3> SignUp </h3>
+                </a>
+                <button class="btn btn-primary" type="submit" id="btn">Sign In</button>
+            </div> 
+            -->   
+        </form>
+    </div>    
+{% endblock content %}

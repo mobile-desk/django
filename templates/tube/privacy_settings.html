@@ -1,0 +1,31 @@
+{% extends "h_tube.html" %}
+{% load static %}
+
+{% block title %}
+    Privacy Settings
+{% endblock title %}
+
+{% block content %}
+    <h1 style="color: black;">Privacy Settings</h1>
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form.username.label_tag }} {{ form.username }}
+        </div>
+        <div class="form-group">
+            {{ form.first_name.label_tag }} {{ form.first_name }}
+        </div>
+        <div class="form-group">
+            {{ form.last_name.label_tag }} {{ form.last_name }}
+        </div>
+        <div class="form-group">
+            {{ form.email.label_tag }} {{ form.email }}
+        </div>
+        <br>
+
+
+        <a href="{% url 'change_password' %}"><button type="button" class="btn btn-outline-primary">Change Password</button></a>
+        <button type="submit" class="btn btn-dark">Save</button>
+    </form>
+    
+{% endblock content %}

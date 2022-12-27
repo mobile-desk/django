@@ -1,0 +1,72 @@
+{% extends "h_tube.html" %}
+{% load static %}
+
+{% block title %}
+    Editing {{ video.name}}
+{% endblock title %}
+
+{% block content %}
+
+
+    
+    {% load crispy_forms_tags %}
+    {% load bootstrap4 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript jquery='full' %}
+
+
+    {% if user.is_authenticated %}
+        
+        
+        <h1 style="color: black;">Profile Settings</h1>
+
+        {{ form.media }}
+        <form method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          {{ form | crispy }}  {# Renders form fields #}
+          <br><br>
+          <button class="btn btn-dark" type="submit">SUBMIT</button>
+        </form>
+
+        <!--
+        <form method="post" action="{% url 'updateprofile' %}">
+            {% csrf_token %}
+            <img src="{{ form.profile_pic.url }}" alt="">
+            <div class="form-group">
+                {{ form.profile_pic.label_tag }} 
+                {{ form.profile_pic }}
+            </div>
+            <div class="form-group">
+                {{ form.birthday.label_tag }} {{ form.birthday }}
+            </div>
+            <div class="form-group">
+                {{ form.bio.label_tag }} {{ form.bio }}
+            </div>
+            <div class="form-group">
+                {{ form.link.label_tag }} {{ form.link }}
+            </div>
+            <br>
+            <button type="submit" class="btn btn-dark">Save</button>
+        </form>
+        -->
+            
+    {% else %}
+        <p> Please login to continue </p>
+        
+    {% endif %}
+
+
+
+   <!-- <h1> Edit Profile </h1>
+    <div class="form-group" style="width: 100%; height: 100%;">
+        <form method="post" enctype="multipart/form-data" action="{% url 'updateprofile' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Save</button>
+        </form>
+        
+    </div> -->
+
+
+
+{% endblock content %}

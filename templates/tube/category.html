@@ -1,0 +1,32 @@
+{% extends "base_tube.html" %}
+
+{% block title %}
+    WELCOME
+{% endblock title %}
+
+{% block content %}
+
+
+
+    <h1 style="color: black;">{{ cats }}</h1>
+
+        <div style="margin-top: 50px; margin-left: 50px;">
+            <div style="display: flex; flex-wrap: wrap;">
+                {% for video in category_video %}
+                    <div style="width: 33.33%;">
+                        <img src="{{ video.thumbnail.url }}" style="width: 300px;">
+                        <h4 style="color: black;"><a href="{% url 'viewtube' video.pk %}" style="color:black; text-decoration: none;" >{{ video.name }} </a></h4>
+                        <p style="color: black;"><a href="{% url 'author' video.author.username %}" style="color:black; text-decoration: none;" >{{ video.author }}</a> <br> {{ video.created_at }}</p>
+                    </div>
+                {% empty %}
+                    <div class="alert alert-danger" role="alert">
+                        <h4 class="alert-heading">SORRY‼⁉</h4>
+                        <p style="color: black;">This category is currently empty as no user has uploaded a video categorized under {{ cats }}.</p>
+                        <hr>
+                        <p class="mb-0" style="color: black;">Be the first to <a href="{% url 'upload_category' %}">upload</a> using this tag.</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+{% endblock content %}

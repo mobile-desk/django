@@ -1,0 +1,187 @@
+{% extends "base_tube.html" %}
+
+{% block title %}
+    {{ user.first_name }} {{ user.last_name }}
+{% endblock title %}
+
+
+
+
+{% block content %}
+
+
+
+
+{% if user.is_authenticated %}
+    {% for profile in profiles %}
+        {% if request.user.id == profile.user.id %}
+            <div class="card mb-3" style="max-width: 600px; margin-top: 50px; margin-left: 50px;">
+            <div class="row g-0">
+                <div class="col-md-4">
+                <img src="{{ profile.profile_pic.url }}" class="img-fluid rounded-start">
+                </div>
+                <div class="col-md-8">
+                <div class="card-body">
+                    <h3 class="card-title" style="color: black;">{{ user.first_name }} {{ user.last_name }}</h3>
+                    <p>@{{ profile.user.username }}</p>
+                    <p class="card-text">{{ profile.bio }}</p>
+                    <p class="card-text"><small class="text-muted"><a href="{{ profile.link }}" style="color: rgb(66, 141, 66);">{{ profile.link }}<a></small></p>
+                
+                    <a href="{% url 'edit_profile' %}"><button type="button" class="btn btn-outline-primary">Privacy Settings</button></a>
+                    <a href="{% url 'updateprofile' %}"><button class="btn btn-dark" type="button">Profile Settings</button></div></a>
+                
+                
+                </div>
+                </div>
+            </div>
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+<!--
+<div style="width: 100%; height: 300px; ">
+    <div style="position: absolute; top: 30%; left: 50%; transform: translate(-50%, -50%);">
+        <h1 style="color: black;">Full Name: {{ user.first_name }} {{ user.last_name }}</h1>
+        <h4 style="color: black;">Username: {{ user.username }}</h4>
+        <p>Email: {{ user.email }} | 
+        Date joined: {{ user.date_joined }}</p>
+
+        {% if user.is_authenticated %}
+
+            {% for profile in profiles %}
+                {% if request.user.id == profile.user.id %}
+                    <img src="{{ profile.profile_pic.url }}" style="width: 50px;">
+                    <p>{{ profile.user.username }}</p>
+                {% endif %}
+            {% endfor %}
+                
+        {% endif %}
+        
+    </div>
+</div>
+-->
+
+
+{% if user.is_authenticated %}
+
+    
+    <div style="margin-top: 50px; margin-left: 50px;">
+        <div style="display: flex; flex-wrap: wrap;">
+            {% if not user.video_set.all %}
+                <div class="alert alert-danger" role="alert">
+                    <h4 class="alert-heading">Your Profile Is so Empty 😢</h4>
+                    <p>Please upload your videos by clicking on the <a href="{% url 'upload' %}">Upload Video</a> button and following the prompts.<br>
+                       Make sure to choose a catchy title and provide a brief description of your video's content.<br>
+                       Thank you for sharing your videos with us!</p>
+                    <hr>
+                    <p class="mb-0">If you are having any issues, please <a href="{% url 'complaint' %}">contact us.</a></p>
+                </div>
+
+            {% endif %}
+            {% for video in videos %}
+                {% if request.user.id == video.author.id %}
+                    <div style="width: 33.33%;">
+                        <img src="{{ video.thumbnail.url }}" style="width: 300px;">
+                        <h4 style="color: black;"><a href="{% url 'viewtube' video.pk %}" style="color:black; text-decoration: none;" >{{ video.name }} </a></h4>
+                        <p style="color: black;">Category: <a href="{% url 'category' video.category|slugify %}"> {{ video.category }}</a>
+                        <br> {{ video.created_at }}</p>
+                    </div>
+                {% endif %}
+            {% empty %}
+                <h4 style="color: black;"> No videos available in database </h4>
+            {% endfor %}
+        </div>
+    </div>
+    
+{% else %}
+    <p> PLEASE LOGIN TO CONTINUE </p>
+{% endif %}
+
+
+
+
+
+
+
+<!--
+<div style="margin-left: 50px;">
+    {% if user.is_authenticated %}
+        
+            <p>Posts</p><hr>
+            {% for video in videos %}
+                {% if request.user.id == video.author.id %}
+                    <p>{{ video.name }}</p>
+                {% endif %}
+            {% endfor %}
+            <br><br>
+
+
+
+            <p>Profiles</p><hr>
+            {% for profile in profiles %}
+                {% if request.user.id == profile.user.id %}
+                    <p>{{ profile.user.username }}</p>
+                {% endif %}
+            {% endfor %}
+        
+    {% endif %}
+</div>
+-->
+
+<!--    <div style="width: 100%; height: 40%; ">
+        <div style="position: absolute; top: 30%; left: 50%; transform: translate(-50%, -50%);">
+            <h1 style="color: black;">Full Name: {{ user.first_name }} {{ user.last_name }}</h1>
+
+            <h4 style="color: black;">Username: {{ user.username }}</h4>
+            <p>Email: {{ user.email }} | 
+            Date joined: {{ user.date_joined }}</p>
+            
+        </div>
+    </div>
+
+
+
+    <div style="margin-top: 50px; margin-left: 50px;">
+        <div style="display: flex; flex-wrap: wrap;">
+            {% for video in object_list %}
+                <div style="width: 33.33%;">
+                    <img src="{{ video.thumbnail.url }}" style="width: 300px;">
+                    <h4 style="color: black;"><a href="{% url 'viewtube' video.pk %}" style="color:black; text-decoration: none;" >{{ video.name }} </a></h4>
+                    <p style="color: black;"><a href="{% url 'author' video.author.username %}" style="color:rgb(9, 86, 14); text-decoration: none;" >{{ video.author }}</a> | <a href="{% url 'category' video.category|slugify %}"> {{ video.category }}</a>
+                     <br> {{ video.created_at }}</p>
+                </div>
+            {% empty %}
+                <h4 style="color: black;"> No videos available in database </h4>
+            {% endfor %}
+        </div>
+    </div>
+
+-->
+
+
+<!--
+
+    <h1>{{ user.username }}</h1>
+    <p>Email: {{ user.email }}</p>
+    <p>Date joined: {{ user.date_joined }}</p>
+    <h1>{{ user.first_name }} {{ user.last_name }}</h1>
+
+
+    <h2>Posts:</h2>
+    {% for video in videos %}
+        <h3>{{ video.name }}</h3>
+        <p>{{ video.description }}</p>
+    {% endfor %}
+
+-->
+
+
+
+
+
+
+
+
+
+{% endblock content %}
